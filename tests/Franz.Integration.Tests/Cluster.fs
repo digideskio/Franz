@@ -123,9 +123,7 @@
         performSSHCommand (sprintf "sudo ./shutdown_a_zookeeper.sh %i" id)
 
     let installPrerequest(name : string) (expectedFile : string) (version : string) =
-        if File.Exists(expectedFile) then
-            executeCommandOutsideShell "choco" ("upgrade " + name + " -y") |> ignore
-        else
+        if File.Exists(expectedFile) = false then
             executeCommandOutsideShell "choco" ("install " + name + " -y" + " -version " + version + " --force --ignore-checksums") |> ignore
 
     let ensureClusterIsRunning =
